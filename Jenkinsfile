@@ -108,7 +108,7 @@ pipeline {
         stage("Release"){
             
             when {
-                expresion {
+                expression {
                     return params.DEPLOY
                 }
             }
