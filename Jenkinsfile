@@ -168,7 +168,7 @@ pipeline {
             steps{
                 echo("Release it")
                 withCredentials([usernamePassword(
-                    credentialsId: "adit_rahasia"
+                    credentialsId: "aditya_rahasia"
                     usernameVariable: "USER",
                     passwordVariable: "PASSWORD"
                 )]){
