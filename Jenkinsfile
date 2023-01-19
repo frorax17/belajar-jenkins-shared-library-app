@@ -88,6 +88,12 @@ pipeline {
             // agent{
             //     label "linux && java11"
             // }
+
+            input {
+                message "Can we deploy?"
+                ok "Yes, of course"
+                submitter "pzn, aditya"
+            }
             steps{
                 echo("Hello Deploy")
                 sleep(5)
