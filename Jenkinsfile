@@ -27,14 +27,14 @@ pipeline {
         timeout(time: 10, unit: 'MINUTES')
     }
 
-    steges {
+    stages {
         stages {
             stage("Prepare Java") {
                 steps {
                     echo("Prepare Java")
                 }
             }
-            
+
             stage("Prepare Maven") {
                 steps {
                     echo("Prepare Manve")
