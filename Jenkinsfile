@@ -8,12 +8,29 @@ pipeline {
         EMAIL = "adityaayatusy@gmail.com"
         APP = credentials("aditya_rahasia")
     }
+    parameters {
+        string(name: "NAME", defaultValue: "Guest", description: "What is your name")
+        text(name: "DESCRIPTION", defaultValue: "Guest", description: "Tell me about you")
+        booleanParam(name: "DEPLOY", defaultValue: false, description: "Neet to Deploy?")
+        choice(name: "SOCIAL_MEDIA", choices: ['Instagram', 'Facebook', 'Twitter'], description: "Wich Social Media?")
+        password(name: "SECRET", defaultValue: "", description: "Encrypt Key")
+    }
+
     options {
         disableConcurrentBuilds()
         timeout(time: 10, unit: 'MINUTES')
     }
     // agent none
     stages {
+        stage("Parameters"){
+            steps {
+                echo "Hello ${params.NAME}"
+                echo "You description is ${params.DESCRIPTION}"
+                echo "Your social medis is ${params.SOCIAL_MEDIA}"
+                echo "Need to deploy ${params.DEPLOY} to deploy !"
+                echo "Your secret is ${params.SECRET}"
+            }   
+        }
         stage("Prepare"){
             steps{
                 echo("Author : ${AUTHOR}")
