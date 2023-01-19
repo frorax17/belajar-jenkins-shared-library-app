@@ -28,24 +28,45 @@ pipeline {
     }
     // agent none
     stages {
-        stage("Preparation") {
-            // stages {
-            parallel {
-                stage("Prepare Java") {
-                    steps {
-                        echo("Prepare Java")
-                        sleep(5)
+        stage("OS Setup"){
+            matrix {
+                axes {
+                    axis {
+                        name 'OS'
+                        values 'linux', 'windows', 'mac'
+                    }
+                     axis {
+                        name 'ARC'
+                        values '32', '64'
                     }
                 }
-
-                stage("Prepare Maven") {
+            }
+            stages{
+                stage("OS Setup") {
                     steps {
-                        echo("Prepare Manve")
-                        sleep(5)
+                        echo "Setup ${OS} ${ARC}"
                     }
                 }
             }
         }
+        // stage("Preparation") {
+        //     // stages {
+        //     parallel {
+        //         stage("Prepare Java") {
+        //             steps {
+        //                 echo("Prepare Java")
+        //                 sleep(5)
+        //             }
+        //         }
+
+        //         stage("Prepare Maven") {
+        //             steps {
+        //                 echo("Prepare Manve")
+        //                 sleep(5)
+        //             }
+        //         }
+        //     }
+        // }
 
         // stage("Parameters"){
         //     steps {
