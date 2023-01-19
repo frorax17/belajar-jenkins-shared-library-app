@@ -29,110 +29,113 @@ pipeline {
     // agent none
     stages {
         stage("Preparation") {
-            stages {
+            // stages {
+            parallel {
                 stage("Prepare Java") {
                     steps {
                         echo("Prepare Java")
+                        sleep(5)
                     }
                 }
 
                 stage("Prepare Maven") {
                     steps {
                         echo("Prepare Manve")
+                        sleep(5)
                     }
                 }
             }
         }
 
-        stage("Parameters"){
-            steps {
-                echo "Hello ${params.NAME}"
-                echo "You description is ${params.DESCRIPTION}"
-                echo "Your social medis is ${params.SOCIAL_MEDIA}"
-                echo "Need to deploy ${params.DEPLOY} to deploy !"
-                echo "Your secret is ${params.SECRET}"
-            }   
-        }
-        stage("Prepare"){
-            steps{
-                echo("Author : ${AUTHOR}")
-                echo("Email : ${EMAIL}")
-                echo("App User : ${APP_USR}")
-                // sh("echo 'App Password : ${APP_PSW}' > 'rahasia.txt'")
-                sh('echo "App Password : ${APP_PSW}" > "rahasia1.txt"')
-                echo("Start Job : ${env.JOB_NAME}")
-                echo("Start Build : ${env.BUILD_NUMBER}")
-                echo("Branch Name : ${env.BRANCH_NAME}")
-            }
-        }
-        stage("Build"){
-            // agent{
-            //     label "linux && java11"
-            // }
-            steps{
-                script{
-                    for(int i = 0; i < 10; i++){
-                        echo("Script ${i}")
-                    }
-                }
-                echo("Start Build")
-                sh("./mvnw clean compile test-compile")
-                echo("Finish Build")
-            }
-        }
+        // stage("Parameters"){
+        //     steps {
+        //         echo "Hello ${params.NAME}"
+        //         echo "You description is ${params.DESCRIPTION}"
+        //         echo "Your social medis is ${params.SOCIAL_MEDIA}"
+        //         echo "Need to deploy ${params.DEPLOY} to deploy !"
+        //         echo "Your secret is ${params.SECRET}"
+        //     }   
+        // }
+        // stage("Prepare"){
+        //     steps{
+        //         echo("Author : ${AUTHOR}")
+        //         echo("Email : ${EMAIL}")
+        //         echo("App User : ${APP_USR}")
+        //         // sh("echo 'App Password : ${APP_PSW}' > 'rahasia.txt'")
+        //         sh('echo "App Password : ${APP_PSW}" > "rahasia1.txt"')
+        //         echo("Start Job : ${env.JOB_NAME}")
+        //         echo("Start Build : ${env.BUILD_NUMBER}")
+        //         echo("Branch Name : ${env.BRANCH_NAME}")
+        //     }
+        // }
+        // stage("Build"){
+        //     // agent{
+        //     //     label "linux && java11"
+        //     // }
+        //     steps{
+        //         script{
+        //             for(int i = 0; i < 10; i++){
+        //                 echo("Script ${i}")
+        //             }
+        //         }
+        //         echo("Start Build")
+        //         sh("./mvnw clean compile test-compile")
+        //         echo("Finish Build")
+        //     }
+        // }
 
-        stage("Test"){
-            steps{
-                // agent{
-                //     label "linux && java11"
-                // }
-                script{
-                    def data = [
-                        "firstName": "Aditya",
-                        "lastName": "Ayatusy"
-                    ]
+        // stage("Test"){
+        //     steps{
+        //         // agent{
+        //         //     label "linux && java11"
+        //         // }
+        //         script{
+        //             def data = [
+        //                 "firstName": "Aditya",
+        //                 "lastName": "Ayatusy"
+        //             ]
 
-                    writeJSON(file: "data.json", json: data)
-                }
-                echo("Start Test")
-                sh("./mvnw test")
-                echo("Finish Test")
-            }
-        }
+        //             writeJSON(file: "data.json", json: data)
+        //         }
+        //         echo("Start Test")
+        //         sh("./mvnw test")
+        //         echo("Finish Test")
+        //     }
+        // }
 
-        stage("Deploy"){
-            // agent{
-            //     label "linux && java11"
-            // }
+        // stage("Deploy"){
+        //     // agent{
+        //     //     label "linux && java11"
+        //     // }
 
-            input {
-                message "Can we deploy?"
-                ok "Yes, of course"
-                submitter "pzn, aditya"
-                parameters {
-                    choice (name: "TARGET_ENV", choices: ['DEV', 'QA', 'PROD'], description: "Which Environment?" )
-                }
-            }
-            steps{
-                echo("Hello Deploy")
-                echo("Target Deploy ${TARGET_ENV}")
-                sleep(5)
-                echo("Hello Deploy 2")
-            }
-        }
+        //     input {
+        //         message "Can we deploy?"
+        //         ok "Yes, of course"
+        //         submitter "pzn, aditya"
+        //         parameters {
+        //             choice (name: "TARGET_ENV", choices: ['DEV', 'QA', 'PROD'], description: "Which Environment?" )
+        //         }
+        //     }
+        //     steps{
+        //         echo("Hello Deploy")
+        //         echo("Target Deploy ${TARGET_ENV}")
+        //         sleep(5)
+        //         echo("Hello Deploy 2")
+        //     }
+        // }
 
-        stage("Release"){
+        // stage("Release"){
             
-            when {
-                expression {
-                    return params.DEPLOY
-                }
-            }
+        //     when {
+        //         expression {
+        //             return params.DEPLOY
+        //         }
+        //     }
 
-            steps{
-                echo("Release it")
-            }
-        }
+        //     steps{
+        //         echo("Release it")
+        //     }
+        // }
     }
 
     post {
