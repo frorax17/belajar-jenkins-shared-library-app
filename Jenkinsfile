@@ -9,7 +9,9 @@ pipeline {
         APP = credentials("aditya_rahasia")
     }
     triggers{
-        cron("*/1 * * * *")
+        // cron("*/1 * * * *")
+        // pollSCM("*/1 * * * *")
+        
     }
 
     parameters {
