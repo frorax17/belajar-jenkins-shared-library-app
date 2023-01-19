@@ -3,7 +3,7 @@ pipeline {
         label "linux && java11"
     }
 
-    envirotment {
+    environment {
         AUTHOR = "Aditya Ayatusy Syifa"
         EMAIL = "adityaayatusy@gmail.com"
     }
