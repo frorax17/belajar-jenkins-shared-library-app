@@ -28,39 +28,39 @@ pipeline {
     }
     // agent none
     stages {
-        stage("OS Setup"){
-            matrix {
-                axes {
-                    axis {
-                        name 'OS'
-                        values 'linux', 'windows', 'mac'
-                    }
-                     axis {
-                        name 'ARC'
-                        values '32', '64'
-                    }
-                }
-                excludes {
-                    exclude {
-                        axis {
-                            name 'OS'
-                            values 'mac'
-                        }
-                        axis {
-                            name 'ARC'
-                            values '32'
-                        }
-                    }
-                }
-                stages{
-                    stage("OS Setup") {
-                        steps {
-                            echo "Setup ${OS} ${ARC}"
-                        }
-                    }
-                }
-            }
-        }
+        // stage("OS Setup"){
+        //     matrix {
+        //         axes {
+        //             axis {
+        //                 name 'OS'
+        //                 values 'linux', 'windows', 'mac'
+        //             }
+        //              axis {
+        //                 name 'ARC'
+        //                 values '32', '64'
+        //             }
+        //         }
+        //         excludes {
+        //             exclude {
+        //                 axis {
+        //                     name 'OS'
+        //                     values 'mac'
+        //                 }
+        //                 axis {
+        //                     name 'ARC'
+        //                     values '32'
+        //                 }
+        //             }
+        //         }
+        //         stages{
+        //             stage("OS Setup") {
+        //                 steps {
+        //                     echo "Setup ${OS} ${ARC}"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         // stage("Preparation") {
         //     // stages {
         //     parallel {
@@ -157,18 +157,25 @@ pipeline {
         //     }
         // }
 
-        // stage("Release"){
+        stage("Release"){
             
-        //     when {
-        //         expression {
-        //             return params.DEPLOY
-        //         }
-        //     }
+            when {
+                expression {
+                    return params.DEPLOY
+                }
+            }
 
-        //     steps{
-        //         echo("Release it")
-        //     }
-        // }
+            steps{
+                echo("Release it")
+                withCredentials([usernamePassword(
+                    credentials: "adit_rahasia"
+                    usernameVariable: "USER",
+                    passwordVariable: "PASSWORD"
+                )]){
+                    sh('echo "Release it with -U $USER -p $PASSWORD" > "rahasia1.txt"')
+                }
+            }
+        }
     }
 
     post {
