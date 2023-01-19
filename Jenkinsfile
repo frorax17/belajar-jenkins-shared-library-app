@@ -8,6 +8,10 @@ pipeline {
         EMAIL = "adityaayatusy@gmail.com"
         APP = credentials("aditya_rahasia")
     }
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 10, unit: 'SECONDS')
+    }
     // agent none
     stages {
         stage("Prepare"){
