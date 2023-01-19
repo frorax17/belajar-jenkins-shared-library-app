@@ -6,6 +6,7 @@ pipeline {
     environment {
         AUTHOR = "Aditya Ayatusy Syifa"
         EMAIL = "adityaayatusy@gmail.com"
+        APP = credentials("aditya_rahasia")
     }
     // agent none
     stages {
@@ -13,6 +14,8 @@ pipeline {
             steps{
                 echo("Author : ${AUTHOR}")
                 echo("Email : ${EMAIL}")
+                echo("App User : ${APP_USR}")
+                echo("App Password : ${APP_PSW}")
                 echo("Start Job : ${env.JOB_NAME}")
                 echo("Start Build : ${env.BUILD_NUMBER}")
                 echo("Branch Name : ${env.BRANCH_NAME}")
