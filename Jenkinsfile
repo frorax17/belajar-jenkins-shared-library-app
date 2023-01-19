@@ -26,25 +26,24 @@ pipeline {
         disableConcurrentBuilds()
         timeout(time: 10, unit: 'MINUTES')
     }
-
+    // agent none
     stages {
-        stages {
-            stage("Prepare Java") {
-                steps {
-                    echo("Prepare Java")
+        stage("Preparation") {
+            stages {
+                stage("Prepare Java") {
+                    steps {
+                        echo("Prepare Java")
+                    }
                 }
-            }
 
-            stage("Prepare Maven") {
-                steps {
-                    echo("Prepare Manve")
+                stage("Prepare Maven") {
+                    steps {
+                        echo("Prepare Manve")
+                    }
                 }
             }
         }
-    }
 
-    // agent none
-    stages {
         stage("Parameters"){
             steps {
                 echo "Hello ${params.NAME}"
