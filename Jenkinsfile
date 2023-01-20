@@ -5,6 +5,16 @@ import programmerzamannow.jenkins.Output;
 pipeline {
     agent any
     stages {
+        stage("Hello Person"){
+            steps {
+                script {
+                    hello.person([
+                        firstName: "Aditya",
+                        lastName: "Ayatusy"
+                    ])
+                }
+            }
+        }
         stage("Maven Compile"){
             steps {
                script{
