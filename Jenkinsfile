@@ -9,7 +9,7 @@ pipeline {
         stage("Hello World"){
             steps {
                 script {
-                    Output.world("Aditya")
+                    Output.hello("Aditya")
                 }
             }
         }
