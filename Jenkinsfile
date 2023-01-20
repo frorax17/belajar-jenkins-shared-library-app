@@ -4,8 +4,10 @@ pipeline {
     agent any
     stages {
         stage("Hello World"){
-            script {
-                hello.world()
+            steps {
+                script {
+                    hello.world()
+                }
             }
         }
     }
