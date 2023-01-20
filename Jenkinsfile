@@ -2,12 +2,12 @@
 
 import programmerzamannow.jenkins.Output;
 
-
 pipeline {
     agent any
     stages {
         stage("Global Variable"){
             steps {
+                echo(author())
                 echo(author.name())
                 echo(author.channel())
             }
